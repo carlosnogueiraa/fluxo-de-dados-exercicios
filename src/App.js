@@ -4,11 +4,13 @@ import FormularioPostagem from "./components/FormularioPostagem/FormularioPostag
 import { Header } from "./components/Header";
 import TelaDaPostagem from "./components/TelaDaPostagem/TelaDaPostagem";
 import FormularioLogin from "./components/FormularioLogin/FormularioLogin";
+
 const GlobalStyle = createGlobalStyle`
   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: sans-serif;
   }
 `;
 
@@ -20,19 +22,30 @@ const Container = styled.div`
 
 function App() {
   const [pageFlow, setPageFlow] = useState(1);
+  const [dados, setDados] = useState({
+    nome: "",
+    foto: ""
+  })
+
+  const [posts, setPosts] = useState({
+    titulo: "",
+    imagem: "",
+    descricao: ""
+  })
+
   return (
     <>
       <GlobalStyle />
       <Container>
         <aside>
-          <Header />
+          <Header dados={dados}/>
           {pageFlow === 1 ? (
-            <FormularioLogin setPageFlow={setPageFlow} />
+            <FormularioLogin setPageFlow={setPageFlow} setDados={setDados}/>
           ) : (
-            <FormularioPostagem />
+            <FormularioPostagem setPosts={setPosts}/>
           )}
         </aside>
-        <TelaDaPostagem />
+        <TelaDaPostagem posts={posts}/>
       </Container>
     </>
   );
